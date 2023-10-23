@@ -55,7 +55,7 @@ def obtener_datos_por_ip(ip):
 
 
 # Función para determinar si una IP está en la misma red, usando la ip y una mascara
-  def es_misma_red(ip, host_ip, mascara):
+def es_misma_red(ip, host_ip, mascara):
     try:
         ip_obj = ipaddress.IPv4Address(ip)
         host_ip_obj = ipaddress.IPv4Network(f"{host_ip}/{mascara}", strict=False)
