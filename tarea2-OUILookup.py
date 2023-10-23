@@ -7,18 +7,27 @@ import sys
 
 # Base de datos de fabricantes de tarjetas de red
 
-# DATOS DE EJEMPLOOOOOOOOO ||||
-#                          VVVV
+# DATOS DE EJEMPLOOOOOOOOO EN EL ARCHIVO DE PRUEBA QUE SE NOS ASIGNÓ||||
+#                                                                   VVVV
 
-base_de_datos = {
-  
-    "00:01:97": "Cisco",
-    "b4:b5:fe": "Hewlett Packard",
-    "00:E0:64": "Samsung Electronics Co.,Ltd",
-    "AC:F7:F3": "Xiaomi"
+def cargar_base_de_datos():
+    base_de_datos = {}
+    try:
+        with open("BaseDatosMac.txt", "r") as file:
+            for line in file:
+                parts = line.strip().split("\t")
+                if len(parts) == 2:
+                    mac = parts[0].strip()
+                    vendor = parts[1].strip()
+                    base_de_datos[mac] = vendor
+    except FileNotFoundError:
+        print("Error: No se encontró el archivo 'BaseDatosMac.txt'")
+    return base_de_datos
+
+base_de_datos = cargar_base_de_datos()
 
   #MAC asociada al fabricante:Nombre del fabricante
-}
+
 
 
 
@@ -46,7 +55,7 @@ def obtener_datos_por_ip(ip):
 
 
 # Función para determinar si una IP está en la misma red, usando la ip y una mascara
-def es_misma_red(ip, host_ip, mascara):
+  def es_misma_red(ip, host_ip, mascara):
     try:
         ip_obj = ipaddress.IPv4Address(ip)
         host_ip_obj = ipaddress.IPv4Network(f"{host_ip}/{mascara}", strict=False)
